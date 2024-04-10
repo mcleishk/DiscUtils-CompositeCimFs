@@ -31,6 +31,13 @@ namespace DiscUtils.BootConfig
         private readonly Guid _parentObject;
         private readonly DeviceRecord _record;
 
+        public DeviceElementValue(Guid parentObject, DeviceRecord record, int type)
+        {
+            _parentObject = parentObject;
+            record.Type = type;
+            _record = record;
+        }
+
         public DeviceElementValue()
         {
             _parentObject = Guid.Empty;

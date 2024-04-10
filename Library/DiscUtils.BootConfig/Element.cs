@@ -405,6 +405,14 @@ namespace DiscUtils.BootConfig
                         return "exportascd";
                     case 0x35000007:
                         return "ramdisktftpblocksize";
+                    case 0x3100000E:
+                        return "primarydevice";
+                    case 0x3100000F:
+                        return "secondarydevice";
+                    case 0x32000011:
+                        return "cimfsrootdirectory";
+                    case 0x31000012:
+                        return "cimfsparentdevice";
                 }
             }
             else if (idClass == ElementClass.Hidden)

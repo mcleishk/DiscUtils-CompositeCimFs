@@ -54,6 +54,12 @@ namespace DiscUtils.BootConfig
                     break;
                 case 8: // custom:nnnnnn
                     break;
+                case 10: // Composite device
+                    newRecord = new CompositeDeviceRecord();
+                    break;
+                case 11: // CimFS device
+                    newRecord = new CimfsDeviceRecord();
+                    break;
                 default:
                     throw new NotImplementedException("Unknown device type: " + type);
             }

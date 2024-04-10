@@ -119,6 +119,55 @@ namespace LibraryTests.BootConfig
         }
 
         [Fact]
+        public void DeviceValue_CimfsRootDirectory()
+        {
+            SparseMemoryStream ms = new();
+            ms.SetLength(80 * 1024 * 1024);
+            BiosPartitionTable pt = BiosPartitionTable.Initialize(ms, Geometry.FromCapacity(ms.Length));
+            pt.Create(WellKnownPartitionType.WindowsNtfs, true);
+
+            RegistryHive hive = RegistryHive.Create(new MemoryStream());
+            Store s = Store.Initialize(hive.Root);
+            BcdObject obj = s.CreateInherit(InheritType.AnyObject);
+
+            string testValue = @"path\\to\\cimfsRoot\";
+            obj.AddElement(WellKnownElement.CimfsRootDirectory, ElementValue.ForString(testValue));
+            var el = obj.GetElement(WellKnownElement.CimfsRootDirectory);
+
+            Assert.Equal(testValue, el.Value.ToString());
+        }
+
+        [Fact]
+        public void DeviceValue_CompositeDevice()
+        {
+            RegistryHive hive = RegistryHive.Create(new MemoryStream());
+            Store s = Store.Initialize(hive.Root);
+            BcdObject obj = s.CreateInherit(InheritType.AnyObject);
+
+            obj.AddElement(WellKnownElement.CimfsParentDevice, ElementValue.ForCompositeDevice(Guid.Empty));
+
+            var el = obj.GetElement(WellKnownElement.CimfsParentDevice);
+
+            Assert.NotNull(el.Value.ToString());
+            Assert.NotEmpty(el.Value.ToString());
+        }
+
+        [Fact]
+        public void DeviceValue_CimfsDevice()
+        {
+            RegistryHive hive = RegistryHive.Create(new MemoryStream());
+            Store s = Store.Initialize(hive.Root);
+            BcdObject obj = s.CreateInherit(InheritType.AnyObject);
+
+            obj.AddElement(WellKnownElement.PrimaryDevice, ElementValue.ForCimFsDevice(Guid.Empty));
+
+            var el = obj.GetElement(WellKnownElement.PrimaryDevice);
+
+            Assert.NotNull(el.Value.ToString());
+            Assert.NotEmpty(el.Value.ToString());
+        }
+
+        [Fact]
         public void GuidValue()
         {
             Guid testGuid = Guid.NewGuid();

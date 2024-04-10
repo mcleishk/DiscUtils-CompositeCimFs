@@ -54,6 +54,45 @@ namespace DiscUtils.BootConfig
         }
 
         /// <summary>
+        /// Gets a test value representing a CimFs device.
+        /// </summary>
+        /// <param name="parentObject">Object containing detailed information about the device.</param>
+        /// <returns>The value as an object.</returns>
+        public static ElementValue ForCimFsDevice(Guid parentObject)
+        {
+            var cimfsRecord = new CimfsDeviceRecord
+            {
+                Type = 11,
+                Version = CimfsDeviceRecord.CompatibleVersion2,
+                ParentOffset = 0,
+                RootPathOffset = 0,
+                RootPathLength = 0,
+                TargetMountVolume = Guid.NewGuid()
+            };
+
+            return new DeviceElementValue(parentObject, cimfsRecord, cimfsRecord.Type);
+        }
+
+        /// <summary>
+        /// Gets a test value representing a composite device.
+        /// </summary>
+        /// <param name="parentObject">Object containing detailed information about the device.</param>
+        /// <returns>The value as an object.</returns>
+        public static ElementValue ForCompositeDevice(Guid parentObject)
+        {
+            var composite = new CompositeDeviceRecord
+            {
+                Type = 10,
+                Signature = Guid.NewGuid(),
+                PrimaryDeviceOffset = 0,
+                SecondaryDeviceOffset = 52,
+                Version = 0
+            };
+
+            return new DeviceElementValue(parentObject, composite, composite.Type);
+        }
+
+        /// <summary>
         /// Gets a value representing the logical boot device.
         /// </summary>
         /// <returns>The boot pseudo-device as an object.</returns>

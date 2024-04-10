@@ -616,6 +616,26 @@ namespace DiscUtils.BootConfig
         DeviceRamDiskTftpBlockSize = 0x35000007,
 
         /// <summary>
+        /// CIM fs root directory.
+        /// </summary>
+        CimfsRootDirectory = 0x32000011,
+
+        /// <summary>
+        /// CIM fs parent device.
+        /// </summary>
+        CimfsParentDevice = 0x31000012,
+
+        /// <summary>
+        /// Primary device
+        /// </summary>
+        PrimaryDevice = 0x3100000E,
+
+        /// <summary>
+        /// Secondary device
+        /// </summary>
+        SecondaryDevice = 0x3100000F,
+
+        /// <summary>
         /// The device type.
         /// </summary>
         SetupDeviceType = 0x45000001,
